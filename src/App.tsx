@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useState} from 'react';
 import "./styles/app.css"
 import PostList from "./components/post/PostList";
 import {PostItemDTO} from "./model/PostItemDTO";
@@ -7,12 +7,16 @@ import {EPostsSorting} from "./model/EPostsSorting";
 import PostsFilter from "./components/post/PostsFilter";
 import Modal from "./components/modal/Modal";
 import Button from "./components/button/Button";
+import {useFilteredPosts} from "./hooks/useFilteredPosts";
+import {useGetPosts} from "./hooks/useGetPosts";
 
 function App() {
-    const [posts, setPosts] = useState([
-        {id: 1, title: "JavaScript", content: "Z"},
-        {id: 2, title: "TS", content: "A"}
-    ]);
+
+    const [limit, setLimit] = useState(10);
+    const [page, setPage] = useState(1);
+
+    const { data: getPostsMetadata } = useGetPosts(limit, page);
+    const [posts, setPosts] = useState(getPostsMetadata?.data ? getPostsMetadata.data : []);
 
     const handleCreatePost = (newPost: PostItemDTO) => {
         setPosts([...posts, newPost]);
@@ -22,31 +26,9 @@ function App() {
         setPosts(posts.filter(p => p.id !== post.id));
     }
 
-    const [filter, setFilter] = useState({search: "", sorting: EPostsSorting.Title});
-    const sortedAndSearchedPosts = useMemo(() => {
-        console.log("Got sorted abd searched posts")
-
-        let newPosts;
-        switch (+filter.sorting) {
-            case EPostsSorting.Title:
-                newPosts = [...posts].sort((p1, p2) => p1.title.localeCompare(p2.title))
-                break
-            case EPostsSorting.Content:
-                newPosts = [...posts].sort((p1, p2) => p1.content.localeCompare(p2.content))
-                break
-            default:
-                newPosts = [...posts]
-                break
-        }
-
-        if (filter.search) {
-            newPosts = newPosts.filter(p => p.title.toLowerCase().includes(filter.search.toLowerCase()))
-        }
-
-        return newPosts
-    }, [filter, posts])
-
     const [newPostFormVisible, setNewPostFormVisible] = useState<boolean>(false);
+    const [filters, setFilters] = useState({search: "", sorting: EPostsSorting.Title});
+    const filteredPosts = useFilteredPosts(posts, filters)
 
     return (
         <div className="App">
@@ -61,9 +43,9 @@ function App() {
                     onSubmit={handleCreatePost}/>
             </Modal>
             <PostsFilter
-                filter={filter}
-                setFilter={setFilter}/>
-            <PostList title={"Posts"} posts={sortedAndSearchedPosts} onDeletePost={handleDeletePost}/>
+                filter={filters}
+                setFilter={setFilters}/>
+            <PostList title={"Posts"} posts={filteredPosts} onDeletePost={handleDeletePost}/>
         </div>
     );
 }

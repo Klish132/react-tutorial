@@ -16,7 +16,7 @@ const PostsFilter = (props: PostsFilterProps) => {
                 onChange={e => props.setFilter({...props.filter, sorting: e.target.value as unknown as EPostsSorting})}
                 initialValue={"Posts sorting"} options={[
                 {label: "By title", value: EPostsSorting.Title},
-                {label: "By content", value: EPostsSorting.Content},
+                {label: "By content", value: EPostsSorting.Body},
             ]}/>
             <Input
                 value={props.filter.search}

@@ -1,4 +1,4 @@
 ﻿export enum EPostsSorting {
     Title = 0,
-    Content = 1
+    Body = 1
 }

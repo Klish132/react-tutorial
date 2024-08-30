@@ -8,7 +8,7 @@ type PostFormProps = {
 }
 
 const PostForm = (props : PostFormProps) => {
-    const [newPost, setNewPost] = useState<PostItemDTO>({ id: 0, title: "", content: "" });
+    const [newPost, setNewPost] = useState<PostItemDTO>({ id: 0, title: "", body: "" });
 
     const handleSubmitPost = (e : FormEvent) => {
         e.preventDefault()
@@ -18,7 +18,7 @@ const PostForm = (props : PostFormProps) => {
         }
 
         props.onSubmit(post)
-        setNewPost({ id: 0, title: "", content: "" })
+        setNewPost({ id: 0, title: "", body: "" })
     }
 
     return (
@@ -30,8 +30,8 @@ const PostForm = (props : PostFormProps) => {
             />
             <Input
                 type={"text"}
-                value={newPost.content}
-                onChange={(e) => setNewPost({...newPost, content: e.target.value})}
+                value={newPost.body}
+                onChange={(e) => setNewPost({...newPost, body: e.target.value})}
             />
             <Button onClick={handleSubmitPost}>Create post</Button>
         </form>
