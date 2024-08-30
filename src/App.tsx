@@ -15,8 +15,7 @@ function App() {
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(1);
 
-    const { data: getPostsMetadata } = useGetPosts(limit, page);
-    const [posts, setPosts] = useState(getPostsMetadata?.data ? getPostsMetadata.data : []);
+    const { posts, setPosts, totalCount } = useGetPosts(limit, page);
 
     const handleCreatePost = (newPost: PostItemDTO) => {
         setPosts([...posts, newPost]);
@@ -32,6 +31,8 @@ function App() {
 
     return (
         <div className="App">
+            <Button
+                onClick={() => setPage(page + 1)}/>
             <Button
                 style={{marginTop: 30}}
                 onClick={() => setNewPostFormVisible(true)}>Create post</Button>
