@@ -3,9 +3,10 @@ import "./styles/app.css"
 import PostList from "./components/post/PostList";
 import {PostItemDTO} from "./model/PostItemDTO";
 import PostForm from "./components/post/PostForm";
-import Select from "./components/select/Select";
 import {EPostsSorting} from "./model/EPostsSorting";
-import Input from "./components/input/Input";
+import PostsFilter from "./components/post/PostsFilter";
+import Modal from "./components/modal/Modal";
+import Button from "./components/button/Button";
 
 function App() {
     const [posts, setPosts] = useState([
@@ -15,18 +16,18 @@ function App() {
 
     const handleCreatePost = (newPost: PostItemDTO) => {
         setPosts([...posts, newPost]);
+        setNewPostFormVisible(false);
     }
     const handleDeletePost = (post: PostItemDTO) => {
         setPosts(posts.filter(p => p.id !== post.id));
     }
 
-    const [sorting, setSorting] = useState(EPostsSorting.Title);
-    const [search, setSearch] = useState("");
+    const [filter, setFilter] = useState({search: "", sorting: EPostsSorting.Title});
     const sortedAndSearchedPosts = useMemo(() => {
         console.log("Got sorted abd searched posts")
 
         let newPosts;
-        switch (+sorting) {
+        switch (+filter.sorting) {
             case EPostsSorting.Title:
                 newPosts = [...posts].sort((p1, p2) => p1.title.localeCompare(p2.title))
                 break
@@ -38,39 +39,31 @@ function App() {
                 break
         }
 
-        if (search) {
-            newPosts = newPosts.filter(p => p.title.toLowerCase().includes(search.toLowerCase()))
+        if (filter.search) {
+            newPosts = newPosts.filter(p => p.title.toLowerCase().includes(filter.search.toLowerCase()))
         }
 
         return newPosts
-    }, [sorting, search, posts])
+    }, [filter, posts])
+
+    const [newPostFormVisible, setNewPostFormVisible] = useState<boolean>(false);
 
     return (
         <div className="App">
-            <PostForm onSubmit={handleCreatePost}/>
+            <Button
+                style={{marginTop: 30}}
+                onClick={() => setNewPostFormVisible(true)}>Create post</Button>
             <hr style={{margin: '15px 0'}}/>
-            <div>
-                <Select
-                    value={sorting}
-                    onChange={e => setSorting(e.target.value as unknown as EPostsSorting)}
-                    initialValue={"Posts sorting"} options={[
-                    {label: "By title", value: EPostsSorting.Title},
-                    {label: "By content", value: EPostsSorting.Content},
-                ]}/>
-                <Input
-                    value={search}
-                    onChange={e => setSearch(e.target.value)}
-                    placeholder={"Search..."}>
-                </Input>
-            </div>
-
-            {sortedAndSearchedPosts.length !== 0
-                ?
-                <PostList title={"Posts"} posts={sortedAndSearchedPosts} onDeletePost={handleDeletePost}/>
-                :
-                <h1 style={{textAlign: 'center'}}>
-                    No posts!
-                </h1>}
+            <Modal
+                visible={newPostFormVisible}
+                setVisible={setNewPostFormVisible}>
+                <PostForm
+                    onSubmit={handleCreatePost}/>
+            </Modal>
+            <PostsFilter
+                filter={filter}
+                setFilter={setFilter}/>
+            <PostList title={"Posts"} posts={sortedAndSearchedPosts} onDeletePost={handleDeletePost}/>
         </div>
     );
 }

@@ -9,6 +9,14 @@ type PostListProps = {
 }
 
 const PostList = (props: PostListProps) => {
+
+    if (!props.posts.length)
+        return (
+            <h1 style={{textAlign: 'center'}}>
+                No posts!
+            </h1>
+        )
+
     return (
         <div>
             <h1 style={{textAlign: 'center'}}>{props.title}</h1>
