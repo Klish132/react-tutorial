@@ -17,12 +17,12 @@ export const useGetPosts = (limit: number = 10, page: number = 1) => {
         })
         .then(<TData>(response: AxiosResponse<TData>) => {
             let totalCount = response.headers['x-total-count'];
-            return { data: response.data, totalCount: totalCount ? Number(totalCount) : -1 };
+            return { posts: response.data, totalCount: totalCount ? Number(totalCount) : -1 };
         }));
 
     useEffect(() => {
-        setPosts(postsMetadata?.data ? postsMetadata.data : [])
-    }, [postsMetadata?.data])
+        setPosts(postsMetadata?.posts ? postsMetadata.posts : [])
+    }, [postsMetadata?.posts])
 
     return useMemo(() =>({
         posts,

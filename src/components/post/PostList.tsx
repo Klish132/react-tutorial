@@ -22,13 +22,13 @@ const PostList = (props: PostListProps) => {
         <div>
             <h1 style={{textAlign: 'center'}}>{props.title}</h1>
             <TransitionGroup>
-                {props.posts.map((post, idx) =>
+                {props.posts.map(post =>
                     <CSSTransition
                         timeout={500}
                         key={post.id}
                         classNames="post"
                     >
-                        <PostItem index={idx} post={post} onDelete={props.onDeletePost}/>
+                        <PostItem post={post} onDelete={props.onDeletePost}/>
                     </CSSTransition>
                 )}
             </TransitionGroup>
