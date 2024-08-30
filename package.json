@@ -41,6 +41,8 @@
     ]
   },
   "devDependencies": {
-    "ajv": "^7.2.4"
+    "@types/react-transition-group": "^4.4.11",
+    "ajv": "^7.2.4",
+    "react-transition-group": "^4.4.5"
   }
 }
