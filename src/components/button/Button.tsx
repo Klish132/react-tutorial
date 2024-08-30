@@ -1,8 +1,7 @@
-﻿import React, {ButtonHTMLAttributes, forwardRef} from 'react';
-import styles from "../styles/Button.module.css"
+﻿import React, {ButtonHTMLAttributes } from 'react';
+import styles from "../../styles/Button.module.css"
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-
 }
 
 const Button = (props: ButtonProps) => {

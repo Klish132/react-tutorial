@@ -1,0 +1,23 @@
+﻿import React, {SelectHTMLAttributes} from 'react';
+
+type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
+    initialValue: string
+    options: { label: string, value: number }[],
+}
+
+const Select = (props: SelectProps) => {
+    return (
+        <div>
+            <select
+                {...props}
+            >
+                <option value="" disabled>{props.initialValue}</option>
+                {props.options.map(option =>
+                    <option key={option.value} value={option.value}>{option.label}</option>
+                )}
+            </select>
+        </div>
+    );
+};
+
+export default Select;
