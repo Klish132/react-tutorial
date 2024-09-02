@@ -8,15 +8,15 @@ import Modal from "../components/modal/Modal";
 import Button from "../components/button/Button";
 import {useFilteredPosts} from "../hooks/useFilteredPosts";
 import {useGetPosts} from "../hooks/useGetPosts";
-import PaginationPages from "../components/PaginationPages";
+import {PaginationPages} from "../components/PaginationPages";
 import {getPageCount} from "../utils/getPageCount";
 
 export function Posts() {
 
-    const [limit, setLimit] = useState(10);
+    const [limit] = useState(10);
     const [page, setPage] = useState(1);
 
-    const {posts, setPosts, totalCount} = useGetPosts(limit, page);
+    const [posts, setPosts, totalCount] = useGetPosts(limit, page);
 
     const handleCreatePost = (newPost: PostItemDTO) => {
         setPosts([...posts, newPost]);

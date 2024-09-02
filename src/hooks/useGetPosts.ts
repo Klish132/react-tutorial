@@ -2,13 +2,13 @@
 import {axiosInstance} from "../lib/axiosInstance";
 import {PostItemDTO} from "../model/PostItemDTO";
 import {AxiosResponse} from "axios";
-import {useEffect, useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 
-export const useGetPosts = (limit: number = 10, page: number = 1) => {
+export const useGetPosts = (limit: number = 10, page: number = 1): [PostItemDTO[], React.Dispatch<React.SetStateAction<PostItemDTO[]>>, number] => {
 
     const [posts, setPosts] = useState<PostItemDTO[]>([]);
 
-    const { data: postsMetadata } = useQuery(["getPosts", limit, page], () => axiosInstance
+    const {data: postsMetadata} = useQuery(["getPosts", limit, page], () => axiosInstance
         .get<PostItemDTO[]>('/posts', {
             params: {
                 _limit: limit,
@@ -17,16 +17,16 @@ export const useGetPosts = (limit: number = 10, page: number = 1) => {
         })
         .then(<TData>(response: AxiosResponse<TData>) => {
             let totalCount = response.headers['x-total-count'];
-            return { posts: response.data, totalCount: totalCount ? Number(totalCount) : -1 };
+            return {posts: response.data, totalCount: totalCount ? Number(totalCount) : -1};
         }));
 
     useEffect(() => {
         setPosts(postsMetadata?.posts ? postsMetadata.posts : [])
     }, [postsMetadata?.posts])
 
-    return useMemo(() =>({
+    return useMemo(() => ([
         posts,
         setPosts,
-        totalCount: postsMetadata?.totalCount ?? -1
-    }), [posts, postsMetadata])
+        postsMetadata?.totalCount ?? -1
+    ]), [posts, postsMetadata])
 }

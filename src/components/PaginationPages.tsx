@@ -7,7 +7,7 @@ type PaginationPagesProps = {
     onChangePage: (page: number) => void;
 }
 
-const PaginationPages = (props: PaginationPagesProps) => {
+export const PaginationPages = (props: PaginationPagesProps) => {
 
     let pages = usePagination(props.totalPages);
 
@@ -25,5 +25,3 @@ const PaginationPages = (props: PaginationPagesProps) => {
         </div>
     );
 };
-
-export default PaginationPages;
