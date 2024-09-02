@@ -11,7 +11,7 @@ const Select = (props: SelectProps) => {
             <select
                 {...props}
             >
-                <option value="" disabled>{props.initialValue}</option>
+                <option value="" disabled selected>{props.initialValue}</option>
                 {props.options.map(option =>
                     <option key={option.value} value={option.value}>{option.label}</option>
                 )}

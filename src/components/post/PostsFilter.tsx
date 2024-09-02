@@ -12,14 +12,13 @@ const PostsFilter = (props: PostsFilterProps) => {
     return (
         <div>
             <Select
-                value={props.filter.sorting}
                 onChange={e => props.setFilter({...props.filter, sorting: e.target.value as unknown as EPostsSorting})}
-                initialValue={"Posts sorting"} options={[
+                initialValue={"Sort..."}
+                options={[
                 {label: "By title", value: EPostsSorting.Title},
                 {label: "By content", value: EPostsSorting.Body},
             ]}/>
             <Input
-                value={props.filter.search}
                 onChange={e => props.setFilter({...props.filter, search: e.target.value})}
                 placeholder={"Search..."}>
             </Input>

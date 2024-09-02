@@ -21,8 +21,9 @@ export const useGetPosts = (limit: number = 10, page: number = 1): [PostItemDTO[
         }));
 
     useEffect(() => {
-        setPosts(postsMetadata?.posts ? postsMetadata.posts : [])
-    }, [postsMetadata?.posts])
+        let newPosts = postsMetadata?.posts ? postsMetadata.posts : []
+        setPosts([...posts, ...newPosts]);
+    }, [posts, postsMetadata?.posts])
 
     return useMemo(() => ([
         posts,

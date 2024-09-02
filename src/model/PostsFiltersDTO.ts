@@ -1,6 +1,6 @@
 ﻿import {EPostsSorting} from "./EPostsSorting";
 
 export type PostsFiltersDTO = {
-    search: string,
-    sorting: EPostsSorting
+    search: string | null,
+    sorting: EPostsSorting | null
 }

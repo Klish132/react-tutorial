@@ -10,6 +10,7 @@ import {useFilteredPosts} from "../hooks/useFilteredPosts";
 import {useGetPosts} from "../hooks/useGetPosts";
 import {PaginationPages} from "../components/PaginationPages";
 import {getPageCount} from "../utils/getPageCount";
+import {PostsFiltersDTO} from "../model/PostsFiltersDTO";
 
 export function Posts() {
 
@@ -27,7 +28,7 @@ export function Posts() {
     }
 
     const [newPostFormVisible, setNewPostFormVisible] = useState<boolean>(false);
-    const [filters, setFilters] = useState({search: "", sorting: EPostsSorting.Title});
+    const [filters, setFilters] = useState<PostsFiltersDTO>({search: null, sorting: null});
     const filteredPosts = useFilteredPosts(posts, filters)
 
     return (
