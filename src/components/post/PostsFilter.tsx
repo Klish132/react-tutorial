@@ -12,7 +12,7 @@ export const PostsFilter = (props: PostsFilterProps) => {
     return (
         <div>
             <Select
-                onChange={e => props.setFilter({...props.filter, sorting: e.target.value as unknown as EPostsSorting})}
+                onChange={e => props.setFilter({...props.filter, sorting: Number(e.target.value) as EPostsSorting})}
                 initialValue={"Sort..."}
                 options={[
                 {label: "By title", value: EPostsSorting.Title},
