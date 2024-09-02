@@ -5,8 +5,6 @@ import {EPostsSorting} from "../model/EPostsSorting";
 
 export const useFilteredPosts = (posts: PostItemDTO[], filters: PostsFiltersDTO) => {
     return useMemo(() => {
-        console.log("Got sorted abd searched posts")
-
         let newPosts;
         switch (+filters.sorting) {
             case EPostsSorting.Title:
