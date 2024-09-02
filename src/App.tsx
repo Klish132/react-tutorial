@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./app.css"
+import {BrowserRouter} from "react-router-dom";
+import {Navbar} from "./components/navbar/Navbar";
+import {AppRouter} from "./components/AppRouter";
+import {AuthContext} from "./context/authContext";
+import {useLocalStorage} from "@uidotdev/usehooks";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export function App() {
+    const [isLoggedIn, setIsLoggedIn] = useLocalStorage("isLoggedIn", false)
+
+    return (
+        <AuthContext.Provider
+            value={{
+                isLoggedIn: isLoggedIn ?? false,
+                login: () => setIsLoggedIn(true),
+                logout: () => setIsLoggedIn(false)
+            }}>
+            <BrowserRouter>
+                <Navbar/>
+                <AppRouter/>
+            </BrowserRouter>
+        </AuthContext.Provider>
+    )
 }
-
-export default App;
