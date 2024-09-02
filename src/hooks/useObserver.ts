@@ -4,8 +4,9 @@ export const useObserver = <T extends Element>(ref: React.MutableRefObject<T | n
     const observer = useRef<IntersectionObserver | null>(null)
 
     useEffect(() => {
-        if(observer.current)
+        if(observer.current) {
             observer.current.disconnect()
+        }
 
         let observerCallback = function (entries: IntersectionObserverEntry[]) {
             if (entries[0].isIntersecting && canLoad) {

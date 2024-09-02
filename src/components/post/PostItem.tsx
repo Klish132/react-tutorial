@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import {PostItemDTO} from "../../model/PostItemDTO";
-import Button from "../button/Button";
+import {Button} from "../button/Button";
 import {useNavigate} from "react-router-dom";
 
 interface PostItemProps {
@@ -8,7 +8,7 @@ interface PostItemProps {
     onDelete: (post: PostItemDTO) => void;
 }
 
-const PostItem = (props : PostItemProps) => {
+export const PostItem = (props : PostItemProps) => {
     const navigate = useNavigate()
 
     return (
@@ -26,5 +26,3 @@ const PostItem = (props : PostItemProps) => {
         </div>
     );
 };
-
-export default PostItem;

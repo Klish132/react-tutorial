@@ -5,7 +5,7 @@ type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
     options: { label: string, value: number }[],
 }
 
-const Select = (props: SelectProps) => {
+export const Select = (props: SelectProps) => {
     return (
         <div>
             <select
@@ -19,5 +19,3 @@ const Select = (props: SelectProps) => {
         </div>
     );
 };
-
-export default Select;

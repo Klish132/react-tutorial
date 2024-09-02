@@ -2,7 +2,7 @@ import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom/client';
 import {QueryClientProvider} from "react-query";
 import {queryClientInstance} from "./lib/queryClientInstance";
-import Loader from "./components/loader/Loader";
+import {Loader} from "./components/loader/Loader";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {App} from "./App";

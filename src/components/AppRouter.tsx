@@ -3,17 +3,15 @@ import {Route, Routes} from "react-router-dom";
 import {privateRoutes, publicRoutes} from "../routes";
 import {AuthContext} from "../context/authContext";
 
-const AppRouter = () => {
-    const { isLoggedIn } = useContext(AuthContext) || {};
+export const AppRouter = () => {
+    const {isLoggedIn} = useContext(AuthContext) || {};
     return (
         <Routes>
             {
                 isLoggedIn
-                    ? privateRoutes.map(r => <Route key={r.path} path={r.path} element={r.element}/>)
-                    : publicRoutes.map(r => <Route key={r.path} path={r.path} element={r.element}/>)
+                    ? privateRoutes.map(route => <Route key={route.path} path={route.path} element={route.element}/>)
+                    : publicRoutes.map(route => <Route key={route.path} path={route.path} element={route.element}/>)
             }
         </Routes>
     );
 };
-
-export default AppRouter;

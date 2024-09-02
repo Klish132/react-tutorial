@@ -1,13 +1,13 @@
 ﻿import React, {FormEvent, useState} from 'react';
-import Input from "../input/Input";
-import Button from "../button/Button";
+import {Input} from "../input/Input";
+import {Button} from "../button/Button";
 import {PostItemDTO} from "../../model/PostItemDTO";
 
 type PostFormProps = {
     onSubmit: (newPost: PostItemDTO) => void;
 }
 
-const PostForm = (props : PostFormProps) => {
+export const PostForm = (props : PostFormProps) => {
     const [newPost, setNewPost] = useState<PostItemDTO>({ id: 0, title: "", body: "" });
 
     const handleSubmitPost = (e : FormEvent) => {
@@ -37,5 +37,3 @@ const PostForm = (props : PostFormProps) => {
         </form>
     );
 };
-
-export default PostForm;

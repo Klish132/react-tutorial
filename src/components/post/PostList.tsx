@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import PostItem from "./PostItem";
+import {PostItem} from "./PostItem";
 import {PostItemDTO} from "../../model/PostItemDTO";
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
@@ -9,7 +9,7 @@ type PostListProps = {
     onDeletePost: (post: PostItemDTO) => void;
 }
 
-const PostList = (props: PostListProps) => {
+export const PostList = (props: PostListProps) => {
 
     if (!props.posts.length)
         return (
@@ -35,5 +35,3 @@ const PostList = (props: PostListProps) => {
         </div>
     );
 };
-
-export default PostList;

@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿import React, {useMemo} from 'react';
 import styles from "./Modal.module.css"
 
 type ModalProps = {
@@ -7,20 +7,22 @@ type ModalProps = {
     children?: React.ReactNode
 }
 
-const Modal = (props: ModalProps) => {
+export const Modal = (props: ModalProps) => {
+    const rootClasses = useMemo(() => {
+        const res = [styles.myModal]
 
-    const rootClasses = [styles.myModal]
-    if (props.visible){
-        rootClasses.push(styles.active)
-    }
+        if (props.visible){
+            res.push(styles.active)
+        }
+
+        return res.join(' ')
+    }, [props.visible])
 
     return (
-        <div className={rootClasses.join(' ')} onClick={() => props.setVisible(false)}>
+        <div className={rootClasses} onClick={() => props.setVisible(false)}>
             <div className={styles.myModalContent} onClick={e => e.stopPropagation()}>
                 {props.children}
             </div>
         </div>
     );
 };
-
-export default Modal;

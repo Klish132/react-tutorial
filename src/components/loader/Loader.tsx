@@ -1,14 +1,10 @@
 ﻿import React from 'react';
 import styles from "./Loader.module.css"
 
-const Loader = () => {
+export const Loader = () => {
     return (
-        <div style={{display: "flex", justifyContent: "center", marginTop: 50}}>
-            <div className={styles.loader}>
-
-            </div>
+        <div className={styles.loaderWrapper}>
+            <div className={styles.loader}/>
         </div>
     );
 };
-
-export default Loader;

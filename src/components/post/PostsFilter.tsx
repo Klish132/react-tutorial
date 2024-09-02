@@ -1,6 +1,6 @@
-﻿import Select from "../select/Select";
+﻿import {Select} from "../select/Select";
 import {EPostsSorting} from "../../model/EPostsSorting";
-import Input from "../input/Input";
+import {Input} from "../input/Input";
 import {PostsFiltersDTO} from "../../model/PostsFiltersDTO";
 
 type PostsFilterProps = {
@@ -8,7 +8,7 @@ type PostsFilterProps = {
     setFilter: (filter: PostsFiltersDTO) => void
 }
 
-const PostsFilter = (props: PostsFilterProps) => {
+export const PostsFilter = (props: PostsFilterProps) => {
     return (
         <div>
             <Select
@@ -25,5 +25,3 @@ const PostsFilter = (props: PostsFilterProps) => {
         </div>
     );
 };
-
-export default PostsFilter;

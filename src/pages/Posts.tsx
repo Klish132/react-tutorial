@@ -1,20 +1,19 @@
-﻿import React, {useRef, useState} from 'react';
-import PostList from "../components/post/PostList";
+﻿import React, {useCallback, useRef, useState} from 'react';
+import {PostList} from "../components/post/PostList";
 import {PostItemDTO} from "../model/PostItemDTO";
-import PostForm from "../components/post/PostForm";
-import PostsFilter from "../components/post/PostsFilter";
-import Modal from "../components/modal/Modal";
-import Button from "../components/button/Button";
+import {PostForm} from "../components/post/PostForm";
+import {PostsFilter} from "../components/post/PostsFilter";
+import {Modal} from "../components/modal/Modal";
+import {Button} from "../components/button/Button";
 import {useFilteredPosts} from "../hooks/useFilteredPosts";
 import {useGetPosts} from "../hooks/useGetPosts";
-import {PaginationPages} from "../components/PaginationPages";
+import {PaginationPages} from "../components/pagination/PaginationPages";
 import {getPageCount} from "../utils/getPageCount";
 import {PostsFiltersDTO} from "../model/PostsFiltersDTO";
 import {useObserver} from "../hooks/useObserver";
-import Select from "../components/select/Select";
+import {Select} from "../components/select/Select";
 
-export function Posts() {
-
+export const Posts = () => {
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(1);
 
@@ -24,8 +23,8 @@ export function Posts() {
         setPosts([...posts, newPost]);
         setNewPostFormVisible(false);
     }
-    const handleDeletePost = (post: PostItemDTO) => {
-        setPosts(posts.filter(p => p.id !== post.id));
+    const handleDeletePost = (postToDelete: PostItemDTO) => {
+        setPosts(posts.filter(post => post.id !== postToDelete.id));
     }
 
     const [newPostFormVisible, setNewPostFormVisible] = useState<boolean>(false);
@@ -33,7 +32,8 @@ export function Posts() {
     const filteredPosts = useFilteredPosts(posts, filters)
 
     const lastElement = useRef<HTMLDivElement | null>(null)
-    useObserver(lastElement, page < getPageCount(totalCount, limit), () => setPage(page + 1))
+    const nextPage = useCallback(() => setPage(page => page + 1), [])
+    useObserver(lastElement, page < getPageCount(totalCount, limit), nextPage)
 
     return (
         <div className="App">

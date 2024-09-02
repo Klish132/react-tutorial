@@ -19,11 +19,11 @@ export const PostPage = () => {
                 Comments
             </h1>
             <div>
-                {comments!.map(c =>
-                    <div key={c.id} style={{marginTop: 15}}>
-                        <h5>{c.email}</h5>
+                {comments!.map(commend =>
+                    <div key={commend.id} style={{marginTop: 15}}>
+                        <h5>{commend.email}</h5>
                         <div>
-                            {c.body}
+                            {commend.body}
                         </div>
                     </div>)}
             </div>
