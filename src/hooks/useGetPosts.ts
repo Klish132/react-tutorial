@@ -22,12 +22,12 @@ export const useGetPosts = (limit: number = 10, page: number = 1): [PostItemDTO[
 
     useEffect(() => {
         let newPosts = postsMetadata?.posts ? postsMetadata.posts : []
-        setPosts([...posts, ...newPosts]);
-    }, [posts, postsMetadata?.posts])
+        setPosts(posts => [...posts, ...newPosts]);
+    }, [postsMetadata?.posts])
 
-    return useMemo(() => ([
+    return useMemo(() => [
         posts,
         setPosts,
         postsMetadata?.totalCount ?? -1
-    ]), [posts, postsMetadata])
+    ], [posts, postsMetadata])
 }

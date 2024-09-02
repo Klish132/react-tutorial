@@ -1,8 +1,7 @@
-﻿import React, {useState} from 'react';
+﻿import React, {useRef, useState} from 'react';
 import PostList from "../components/post/PostList";
 import {PostItemDTO} from "../model/PostItemDTO";
 import PostForm from "../components/post/PostForm";
-import {EPostsSorting} from "../model/EPostsSorting";
 import PostsFilter from "../components/post/PostsFilter";
 import Modal from "../components/modal/Modal";
 import Button from "../components/button/Button";
@@ -11,10 +10,12 @@ import {useGetPosts} from "../hooks/useGetPosts";
 import {PaginationPages} from "../components/PaginationPages";
 import {getPageCount} from "../utils/getPageCount";
 import {PostsFiltersDTO} from "../model/PostsFiltersDTO";
+import {useObserver} from "../hooks/useObserver";
+import Select from "../components/select/Select";
 
 export function Posts() {
 
-    const [limit] = useState(10);
+    const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(1);
 
     const [posts, setPosts, totalCount] = useGetPosts(limit, page);
@@ -31,6 +32,9 @@ export function Posts() {
     const [filters, setFilters] = useState<PostsFiltersDTO>({search: null, sorting: null});
     const filteredPosts = useFilteredPosts(posts, filters)
 
+    const lastElement = useRef<HTMLDivElement | null>(null)
+    useObserver(lastElement, page < getPageCount(totalCount, limit), () => setPage(page + 1))
+
     return (
         <div className="App">
             <Button
@@ -46,7 +50,17 @@ export function Posts() {
             <PostsFilter
                 filter={filters}
                 setFilter={setFilters}/>
+            <Select
+                value={limit}
+                initialValue="Limit..."
+                onChange={e => setLimit(Number(e.target.value))}
+                options={[
+                    {label: "10", value: 10},
+                    {label: "25", value: 25},
+                    {label: "All", value: -1}
+                ]}/>
             <PostList title={"Posts"} posts={filteredPosts} onDeletePost={handleDeletePost}/>
+            <div ref={lastElement} style={{height: 20}}></div>
             <PaginationPages
                 totalPages={getPageCount(totalCount, limit)}
                 currentPage={page}
