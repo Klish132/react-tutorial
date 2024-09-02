@@ -1,8 +1,8 @@
-import "./styles/app.css"
+import "./app.css"
 import {BrowserRouter} from "react-router-dom";
 import {Navbar} from "./components/navbar/Navbar";
 import AppRouter from "./components/AppRouter";
-import {AuthContext} from "./context";
+import {AuthContext} from "./context/authContext";
 import { useLocalStorage } from "@uidotdev/usehooks";
 
 export function App() {

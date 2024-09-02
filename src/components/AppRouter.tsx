@@ -1,7 +1,7 @@
 ﻿import React, {useContext} from 'react';
 import {Route, Routes} from "react-router-dom";
 import {privateRoutes, publicRoutes} from "../routes";
-import {AuthContext} from "../context";
+import {AuthContext} from "../context/authContext";
 
 const AppRouter = () => {
     const { isLoggedIn } = useContext(AuthContext) || {};

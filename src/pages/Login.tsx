@@ -1,7 +1,7 @@
 ﻿import React, {useContext} from 'react';
 import Input from "../components/input/Input";
 import Button from "../components/button/Button";
-import {AuthContext} from "../context";
+import {AuthContext} from "../context/authContext";
 
 export const Login = () => {
     const { login } = useContext(AuthContext) || {};
