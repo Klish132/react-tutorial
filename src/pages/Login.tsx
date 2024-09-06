@@ -13,7 +13,7 @@ export const Login = () => {
                 e.preventDefault();
                 login!()
             }}>
-                <Input type="test" placeholder="Username" />
+                <Input type="text" placeholder="Username" />
                 <Input type="password" placeholder="Password" />
                 <Button>Login</Button>
             </form>
